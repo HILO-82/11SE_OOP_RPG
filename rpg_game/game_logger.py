@@ -4,7 +4,6 @@ Game logger module for the RPG game.
 This module contains the GameLogger class for logging game events.
 """
 import datetime
-from typing import Any, Optional
 
 class GameLogger:
     """
@@ -23,7 +22,7 @@ class GameLogger:
         self.log_to_console = log_to_console
         self.log_history = []
         
-    def log_combat(self, attacker: Any, defender: Any, damage: int, ability: Optional[str] = None) -> None:
+    def log_combat(self, attacker: 'Character', defender: 'Character', damage: int, ability: str = None) -> None:
         """
         Log a combat event.
         
@@ -65,6 +64,6 @@ class GameLogger:
         Get the complete combat history.
         
         Returns:
-            List of all combat events in chronological order
+            List of all combat events
         """
         return self.log_history
