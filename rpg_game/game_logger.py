@@ -32,6 +32,10 @@ class GameLogger:
             damage: The amount of damage dealt (negative for healing)
             ability: Optional name of the ability used
         """
+        # Skip logging if there's no damage and no ability (empty combat log)
+        if damage == 0 and not ability:
+            return
+            
         timestamp = datetime.datetime.now().strftime("%H:%M:%S")
         
         # Determine if this is an attack, heal, or other ability

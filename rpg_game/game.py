@@ -485,7 +485,9 @@ class Game:
                                     [str(i + 1) for i in range(len(consumables))])
         
         if choice is not None:
-            item = consumables[choice]
+            # Convert choice to 0-based index
+            item_index = int(choice) - 1
+            item = consumables[item_index]
             if self.inventory.use_consumable(item):
                 character.set_health(character.get_health() + item.heal_amount)
                 print(f"Used {item.name}! Restored {item.heal_amount} HP.")
@@ -543,21 +545,21 @@ class Game:
                 "health": HEALING_SPIRIT["health"],
                 "damage": HEALING_SPIRIT["damage"],
                 "ability": HEALING_SPIRIT["ability"],
-                "description": HEALING_SPIRIT["description"]
+                "description": HEALING_SPIRIT["ability_description"]
             },
             {
                 "name": BATTLE_HOUND["name"],
                 "health": BATTLE_HOUND["health"],
                 "damage": BATTLE_HOUND["damage"],
                 "ability": BATTLE_HOUND["ability"],
-                "description": BATTLE_HOUND["description"]
+                "description": BATTLE_HOUND["ability_description"]
             },
             {
                 "name": SHIELD_GUARDIAN["name"],
                 "health": SHIELD_GUARDIAN["health"],
                 "damage": SHIELD_GUARDIAN["damage"],
                 "ability": SHIELD_GUARDIAN["ability"],
-                "description": SHIELD_GUARDIAN["description"]
+                "description": SHIELD_GUARDIAN["ability_description"]
             }
         ]
         

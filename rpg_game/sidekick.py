@@ -54,10 +54,18 @@ class Sidekick(Character):
             logger: GameLogger instance for logging
         """
         if self.support_ability.lower() == "heal":
-            heal_amount = self.damage // 2  # Sidekicks heal for half their damage value
-            target.set_health(target.get_health() + heal_amount)
-            logger.log_combat(self, target, -heal_amount, ability=self.support_ability)
-            print(f"{self.name} uses {self.support_ability} on {target.name}!")
+            # Healing Spirit has a fixed heal amount of 15 as per its description
+            heal_amount = 15 if self.name == "Healing Spirit" else (self.damage // 2)
+            target_health = target.get_health() + heal_amount
+            max_health = getattr(target, '_max_health', float('inf'))
+            actual_heal = min(heal_amount, max_health - target.get_health())
+            
+            if actual_heal > 0:
+                target.set_health(target_health)
+                logger.log_combat(self, target, -actual_heal, ability=self.support_ability)
+                print(f"{self.name} uses {self.support_ability} on {target.name}! Restored {actual_heal} HP.")
+            else:
+                print(f"{target.name} is already at full health!")
         else:
             print(f"{self.name} can't use {self.support_ability}!")
 
